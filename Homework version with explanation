@@ -1,0 +1,35 @@
+clc; % Clears the command window
+clear; % Clears all variables from the workspace
+
+fprintf('To input number please change the value of x_r_int and to change the radix please change R1\n');
+% Displays instructions on how to input a number and change the radix
+
+x_16_num = 'ABCDEF'; % Defines a string containing hexadecimal digits from A to F
+x_16_num_num_to_dec = [10, 11, 12, 13, 14, 15]; % Defines an array with corresponding decimal values for hex digits A to F
+x_10_int = 0; % Initializes the variable to store the resulting decimal value
+R1 = 16; % Specifies the radix/base for the conversion (in this case, hexadecimal)
+
+x_r_int = '11A'; % Defines the input hexadecimal number (change this to convert a different number)
+
+i = 0; % Counter used in the following loop to keep track of the digit position
+
+for k = reverse(x_r_int) % Iterates through each digit of the input number in reverse order
+    c = 1; % Counter used in the nested loop to track the position of the hexadecimal digit
+    
+    % Inner loop to check each digit against the hexadecimal digits
+    for j = x_16_num
+        if k == j % Checks if the current digit is equal to any hexadecimal digit
+            kk = x_16_num_num_to_dec(c); % If found, assigns the corresponding decimal value
+            break; % Breaks the loop as the digit is identified
+        else
+            kk = str2double(k); % If not found, converts the digit to a number
+        end
+        c = c + 1; % Moves to the next position in the x_16_num array
+    end
+    
+    % Calculates the decimal value for the current digit and updates x_10_int
+    x_10_int = x_10_int + kk * R1 ^ i;
+    i = i + 1; % Moves to the next digit position
+end
+
+fprintf("\n %f\n", x_10_int); % Displays the resulting decimal value of the input hexadecimal number
